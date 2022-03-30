@@ -1,0 +1,24 @@
+POST https://enigmatic-hamlet-51916.herokuapp.com/
+
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query getRandomStory($lenguage: String!) {
+    getRandomStory(lenguage: $lenguage) {
+      id
+      image {
+        encoding
+        filename
+        mimetype
+      }
+      title
+      publicPublisher
+      publisher
+      body
+      createdAt
+    }
+  }
+
+  {
+    "lenguage" : "español"
+  }
