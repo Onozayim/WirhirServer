@@ -10,10 +10,12 @@ const { graphqlUploadExpress } = require("graphql-upload");
 const { typeDefs } = require("./Graphql/TypeDefs2");
 const { resolvers } = require("./Graphql/Resolvers");
 const { MONGO_URL } = require("./Config");
+const cors = require("cors");
 
 const startApolloServer = async () => {
   const app = express();
 
+  app.use(cors());
   const httpServer = createServer(app);
 
   const schema = makeExecutableSchema({
