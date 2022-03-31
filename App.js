@@ -48,7 +48,7 @@ const startApolloServer = async () => {
 
   server.applyMiddleware({ app });
 
-  app.use(express.static("public"));
+  app.use(express.static("Public"));
 
   const PORT = process.env.PORT || 4000;
 
