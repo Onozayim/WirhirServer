@@ -1,24 +1,20 @@
-POST https://enigmatic-hamlet-51916.herokuapp.com/
+POST https://mighty-badlands-64956.herokuapp.com/Graphql
 
 Content-Type: application/json
 X-REQUEST-TYPE: GraphQL
 
-query getRandomStory($lenguage: String!) {
-    getRandomStory(lenguage: $lenguage) {
-      id
-      image {
-        encoding
-        filename
-        mimetype
-      }
-      title
-      publicPublisher
-      publisher
-      body
-      createdAt
-    }
-  }
 
-  {
-    "lenguage" : "español"
+mutation login($email: String!, $password: String!, $lenguage: String!) {
+  login(email: $email, password: $password, lenguage: $lenguage) {
+    email
+    id
+    token
+    userName
   }
+}
+
+{
+  "email" : "user5@gmail.com",
+  "password" : "12345678",
+  "lenguage" : "español"
+}
