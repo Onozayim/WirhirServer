@@ -1030,7 +1030,10 @@ const resolvers = {
           );
 
           await post.save();
-          return token;
+          return {
+            token: token,
+            id: id,
+          };
         }
 
         const post = await User.findByIdAndUpdate(
