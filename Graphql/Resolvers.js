@@ -957,8 +957,6 @@ const resolvers = {
             { new: true }
           );
 
-          await post.save();
-
           const token = generateToken(newUser);
 
           await Story.updateMany(
@@ -1025,6 +1023,7 @@ const resolvers = {
             { new: true }
           );
 
+          await post.save();
           return token;
         }
 
