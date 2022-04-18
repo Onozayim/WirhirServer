@@ -529,7 +529,7 @@ const resolvers = {
           date.getMilliseconds();
         const randomName = makeid(15) + dateString.toString() + ext;
         const stream = createReadStream();
-        const pathName = path.join(__dirname, `../public/images/${randomName}`);
+        const pathName = path.join(__dirname, `../public/Images/${randomName}`);
 
         const out = require("fs").createWriteStream(pathName);
 
@@ -626,7 +626,7 @@ const resolvers = {
           date.getMilliseconds();
         const randomName = makeid(15) + dateString.toString() + ext;
         const stream = createReadStream();
-        const pathName = path.join(__dirname, `../public/images/${randomName}`);
+        const pathName = path.join(__dirname, `../public/Images/${randomName}`);
 
         const out = require("fs").createWriteStream(pathName);
 
@@ -752,7 +752,7 @@ const resolvers = {
           date.getMilliseconds();
         const randomName = makeid(15) + dateString.toString() + ext;
         const stream = createReadStream();
-        const pathName = path.join(__dirname, `../public/images/${randomName}`);
+        const pathName = path.join(__dirname, `../public/Images/${randomName}`);
 
         const out = require("fs").createWriteStream(pathName);
 
@@ -917,7 +917,7 @@ const resolvers = {
           const stream = createReadStream();
           const pathName = path.join(
             __dirname,
-            `../public/images/${randomName}`
+            `../public/Images/${randomName}`
           );
 
           const out = require("fs").createWriteStream(pathName);
