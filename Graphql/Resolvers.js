@@ -383,6 +383,7 @@ const resolvers = {
         throw new UserInputError("Email, is taken", {
           errors: {
             userName: "This Email is taken",
+            a,
           },
         });
       }
@@ -395,7 +396,11 @@ const resolvers = {
         password: registerInput.password,
         biography: "HOLA! ESTOY USANDO WIRHIR",
         banned: false,
-        image: null,
+        image: {
+          filename: null,
+          mimetype: null,
+          encoding: null,
+        },
       });
 
       const res = await newUser.save();
