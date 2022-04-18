@@ -104,43 +104,55 @@ const resolvers = {
     },
 
     getRandomStory: async (_, { lenguage }) => {
-      const stories = await Story.find({ lenguage: lenguage });
-      const number = Math.floor(Math.random() * stories.length);
+      const count = await Story.count({ lenguage: lenguage });
 
-      const desBody = cryptr.decrypt(stories[number].body);
-      const desTitle = cryptr.decrypt(stories[number].title);
+      const randomNumber = Math.floor(Math.random() * count);
+
+      const randomStorie = await Story.findOne({ lenguage: lenguage }).skip(
+        randomNumber
+      );
+
+      const desBody = cryptr.decrypt(randomStorie.body);
+      const desTitle = cryptr.decrypt(randomStorie.title);
 
       return {
-        id: stories[number].id,
-        image: stories[number].image,
+        id: randomStorie.id,
+        image: randomStorie.image,
         title: desTitle,
-        publicPublisher: stories[number].publicPublisher,
-        publisher: stories[number].publisher,
+        publicPublisher: randomStorie.publicPublisher,
+        publisher: randomStorie.publisher,
         body: desBody,
-        createdAt: stories[number].createdAt,
+        createdAt: randomStorie.createdAt,
       };
     },
 
     getRandomPost: async (_, { lenguage }) => {
       let posts;
       let number;
-      posts = await Post.find({ original: true, lenguage: lenguage });
-      number = Math.floor(Math.random() * posts.length);
-      if (posts[number].original) flag = true;
 
-      const decBody = cryptr.decrypt(posts[number].body);
-      const decTitle = cryptr.decrypt(posts[number].title);
+      const count = await Post.count({ lenguage: lenguage, original: true });
+
+      const randomNumber = Math.floor(Math.random() * count);
+      const randomPost = await Post.findOne({
+        original: true,
+        lenguage: lenguage,
+      }).skip(randomNumber);
+
+      if (randomPost.original) flag = true;
+
+      const decBody = cryptr.decrypt(randomPost.body);
+      const decTitle = cryptr.decrypt(randomPost.title);
 
       return {
         body: decBody,
-        confident: posts[number].confident,
-        createdAt: posts[number].createdAt,
-        id: posts[number].id,
-        original: posts[number].original,
-        publicPublisher: posts[number].publicPublisher,
+        confident: randomPost.confident,
+        createdAt: randomPost.createdAt,
+        id: randomPost.id,
+        original: randomPost.original,
+        publicPublisher: randomPost.publicPublisher,
         title: decTitle,
-        user: posts[number].user,
-        image: posts[number].image,
+        user: randomPost.user,
+        image: randomPost.image,
       };
     },
 
@@ -966,6 +978,46 @@ const resolvers = {
             { new: true }
           );
 
+          await Requests.updateMany(
+            {
+              senderId: id,
+              senderConf: false,
+            },
+            { senderName: userName },
+            { new: true }
+          );
+
+          await Requests.updateMany(
+            {
+              receiverId: id,
+              receiverConf: false,
+            },
+            { receiverName: userName },
+            { new: true }
+          );
+
+          await Calls.updateMany(
+            {
+              userId: id,
+              userConf: false,
+            },
+            {
+              userName: userName,
+            },
+            { new: true }
+          );
+
+          await Calls.updateMany(
+            {
+              partnerId: id,
+              partnerConf: false,
+            },
+            {
+              partnerName: userName,
+            },
+            { new: true }
+          );
+
           return token;
         }
 
@@ -1467,7 +1519,7 @@ const resolvers = {
         expiresIn: "15m",
       });
 
-      const link = `http://localhost:3000/recoverLink/${token}`;
+      const link = `https://wirhir.netlify.app/recoverLink/${token}`;
 
       if (lenguage === "español") {
         await transporter.sendMail({
