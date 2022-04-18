@@ -225,13 +225,14 @@ const resolvers = {
 
       return {
         id: story.id,
-        title: desBody,
-        body: desTitle,
+        title: desTitle,
+        body: desBody,
         publisher: story.publisher,
         publicPublisher: story.publicPublisher,
         confident: story.confident,
         createdAt: story.createdAt,
         lenguage: story.lenguage,
+        image: story.image,
       };
     },
 
@@ -394,6 +395,7 @@ const resolvers = {
         password: registerInput.password,
         biography: "HOLA! ESTOY USANDO WIRHIR",
         banned: false,
+        image: null,
       });
 
       const res = await newUser.save();
