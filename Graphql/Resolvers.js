@@ -957,6 +957,12 @@ const resolvers = {
             { new: true }
           );
 
+          const newUser = {
+            email: post.email,
+            userName: userName,
+            id: id,
+          };
+
           const token = generateToken(newUser);
 
           await Story.updateMany(
