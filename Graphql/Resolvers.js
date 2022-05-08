@@ -1500,7 +1500,7 @@ const resolvers = {
           partnerId: userId,
           partnerName: userName,
           partnerConf: conf2,
-          day: `${date.getFullYear()}/${date.getMonth()}/${date.getDate()}`,
+          day: date.toISOString,
           hour: `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
         }).save();
 
